@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whiteboard</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      canvas {
+        display: block;
+        background: #fff;
+      }
+      #controls {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        border-radius: 5px;
+      }
+      button {
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="controls">
+      <button onclick="setStrokeSize(2)">Thin</button>
+      <button onclick="setStrokeSize(5)">Medium</button>
+      <button onclick="setStrokeSize(10)">Thick</button>
+    </div>
+    <canvas id="whiteboard"></canvas>
+    <script src="whiteboard.js"></script>
+  </body>
+</html>
