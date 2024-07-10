@@ -76,7 +76,20 @@ const draw = (e) => {
 
   const { x, y } = getAdjustedMouseCoordinates(e);
   const point = { x, y, size: strokeSize };
-  currentLine.push(point);
+  // Check if currentLine has points to compare with
+  if (currentLine.length > 0) {
+    const lastPoint = currentLine[currentLine.length - 1];
+    const diffX = Math.abs(x - lastPoint.x);
+    const diffY = Math.abs(y - lastPoint.y);
+
+    // Only push the new point if it's more than 5 units away in x or y from the last point
+    if (diffX > 1 || diffY > 1) {
+      currentLine.push(point);
+    }
+  } else {
+    // If currentLine is empty, push the new point
+    currentLine.push(point);
+  }
   redraw();
 };
 
@@ -148,7 +161,7 @@ const redraw = () => {
 
 // Step 3: Add a wheel event listener for zooming
 canvas.addEventListener('wheel', (e) => {
-  if (e.metaKey) {
+  if (e.metaKey || e.ctrlKey) {
     // Check if Command key is pressed
     e.preventDefault(); // Prevent the page from scrolling
     if (e.deltaY < 0) {
@@ -238,6 +251,7 @@ canvas.addEventListener('mousedown', (e) => {
     startDrawing(e);
   }
 });
+
 canvas.addEventListener('mouseup', (e) => {
   if (spacePressed) {
     stopDragging();
@@ -246,6 +260,7 @@ canvas.addEventListener('mouseup', (e) => {
     stopDrawing();
   }
 });
+
 canvas.addEventListener('mousemove', (e) => {
   if (spacePressed) {
     performDragging(e);
@@ -257,6 +272,7 @@ canvas.addEventListener('mousemove', (e) => {
     draw(e);
   }
 });
+
 canvas.addEventListener('contextmenu', (e) => e.preventDefault()); // Prevent the context menu from appearing
 
 document.addEventListener('keydown', (e) => {
