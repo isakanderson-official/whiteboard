@@ -83,7 +83,7 @@ const draw = (e) => {
     const diffY = Math.abs(y - lastPoint.y);
 
     // Only push the new point if it's more than 5 units away in x or y from the last point
-    if (diffX > 1 || diffY > 1) {
+    if (diffX > 2 || diffY > 2) {
       currentLine.push(point);
     }
   } else {
